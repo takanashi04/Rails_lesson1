@@ -1,4 +1,5 @@
 class CreateTasks < ActiveRecord::Migration[6.1]
+  # マイグレーションファイルはchangeメソッドの集まり
   def change
     create_table :tasks do |t|
       t.string :title
