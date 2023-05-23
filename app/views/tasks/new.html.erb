@@ -1,5 +1,7 @@
 <h2>投稿画面</h2>
 
+<%= render "shared/error", obj: @task %>
+
 <%= form_with model: @task do |f| %>
   <table>
     <tr>
