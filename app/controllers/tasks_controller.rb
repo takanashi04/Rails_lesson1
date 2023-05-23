@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(params.require(:tasks).permit(:title, :start_date, :end_date, :all_day, :detail_memo))
+    @task = Task.new(params.require(:task).permit(:title, :start_date, :end_date, :all_day, :update_time, :created_at, :updated_at, :detail_memo))
     if @task.save
       flash[:notice] = "新しい予定を登録しました"
       redirect_to :tasks # 別のURLで再アクセスさせる
@@ -18,6 +18,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    @task = Task.find(params[:id])
   end
 
   def edit
@@ -28,4 +29,14 @@ class TasksController < ApplicationController
 
   def destroy
   end
+
+  def task_params
+    params.require(:task).permit(
+      :title,
+      :start_date,
+      :end_date,
+      :all_day,
+    )
+  end
+
 end

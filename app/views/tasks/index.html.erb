@@ -1,7 +1,7 @@
 <h2>スケジュール一覧</h2>
 
 <% if flash[:notice] %>
-  <p class="notice"><%= falsh[:notice] %></p>
+  <p class="notice"><%= flash[:notice] %></p>
 <% end %>
 
 <table>
@@ -13,6 +13,7 @@
       <th>終了日</th>
       <th>終日</th>
       <th>更新日時</th>
+      <th>詳細</th>
     </tr>
   </thead>
 
@@ -21,10 +22,13 @@
       <tr>
         <td><%= task.id %></td>
         <td><%= task.title %></td>
-        <td><%= task.start_day %></td>
-        <td><%= task.end_day %></td>
+        <td><%= task.start_date %></td>
+        <td><%= task.end_date %></td>
         <td><%= task.all_day %></td>
-        <td><%= task.update_time %></td>
+        <td><%= task.updated_at.to_s(:datetime_jp) %></td>
+        <td>
+          <%= link_to "詳細", task %>
+        </td>
       </tr>
     <% end %>
   </tbody>
