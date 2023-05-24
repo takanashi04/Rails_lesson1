@@ -8,8 +8,10 @@ class TasksController < ApplicationController
     if @task.save
       flash[:notice] = "新しい予定を登録しました"
       redirect_to :tasks # 別のURLで再アクセスさせる
+      # DBから編集前のデータを取得している（そのため入力した値がなくなる）
     else
-      render "new"
+      render "new" # ビューファイルを指定する
+      # 直接ファイルを参照する
     end
   end
 
@@ -22,9 +24,17 @@ class TasksController < ApplicationController
   end
 
   def edit
+    @task = Task.find(params[:id])
   end
 
   def update
+    @task = Task.find(params[:id])
+    if @task.update(params.require(:task).permit(:title, :start_date, :end_date, :all_day))
+      flash[:notice] = "ユーザーIDが「#{@task.id}」の情報を更新しました"
+      redirect_to :tasks
+    else
+      render "edit"
+    end
   end
 
   def destroy
