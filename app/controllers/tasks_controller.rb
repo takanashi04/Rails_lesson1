@@ -41,6 +41,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
     flash[:notice] = "予定を削除しました"
+    redirect_to :tasks
   end
 
   def task_params
