@@ -1,5 +1,7 @@
 <h2>スケジュール一覧</h2>
 
+<p><%= link_to "新規投稿", :new_task %></p>
+
 <% if flash[:notice] %>
   <p class="notice"><%= flash[:notice] %></p>
 <% end %>
@@ -26,7 +28,13 @@
         <td><%= task.title %></td>
         <td><%= task.start_date %></td>
         <td><%= task.end_date %></td>
-        <td><%= task.all_day %></td>
+        <td>
+          <%# all_dayはstring型です %>
+          <% if task.all_day == "1" %>
+          ⚪︎ 
+          <% else task.all_day == "0" %>
+          <% end %>
+        </td>
         <td><%= task.updated_at.to_s(:datetime_jp) %></td>
         <td>
           <%= link_to "詳細", task %>
@@ -42,4 +50,5 @@
   </tbody>
 </table>
 
-<p><%= link_to "新規投稿", :new_task %></p>
+<% time = Time.now %>
+<h3><%= "今日の日付  " + time.strftime("%Y年%m月%d日") %></h3>
