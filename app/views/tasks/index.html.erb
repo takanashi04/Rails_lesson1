@@ -1,7 +1,9 @@
 <h2>スケジュール一覧</h2>
 
+<p><%= link_to "新規投稿", :new_task %></p>
+
 <% if flash[:notice] %>
-  <p class="notice"><%= falsh[:notice] %></p>
+  <p class="notice"><%= flash[:notice] %></p>
 <% end %>
 
 <table>
@@ -13,6 +15,9 @@
       <th>終了日</th>
       <th>終日</th>
       <th>更新日時</th>
+      <th>詳細</th>
+      <th>編集</th>
+      <th>削除</th>
     </tr>
   </thead>
 
@@ -21,13 +26,31 @@
       <tr>
         <td><%= task.id %></td>
         <td><%= task.title %></td>
-        <td><%= task.start_day %></td>
-        <td><%= task.end_day %></td>
-        <td><%= task.all_day %></td>
-        <td><%= task.update_time %></td>
+        <td><%= task.start_date %></td>
+        <td><%= task.end_date %></td>
+        <td>
+          <%# all_dayはstring型です %>
+          <% if task.all_day == "1" %>
+          ⚪︎ 
+          <% else task.all_day == "0" %>
+          <% end %>
+        </td>
+        <td><%= task.updated_at.to_s(:datetime_jp) %></td>
+        <td>
+          <%= link_to "詳細", task %>
+        </td>
+        <td>
+          <%= link_to "編集", [:edit, task] %>
+        </td>
+        <td>
+          <%= link_to "削除", task, method: :delete, data: {confirm: "本当に削除しますか？"} %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<p><%= link_to "新規投稿", :new_task %></p>
+<% time = Time.now %>
+<% tasks_all_count = Task.count %>
+<h3><%= "今日の日付  " + time.strftime("%Y年%m月%d日") %></h3>
+<h2><%= "予定合計" + "#{tasks_all_count}" + "件" %></h2>
