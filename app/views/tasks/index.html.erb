@@ -51,4 +51,6 @@
 </table>
 
 <% time = Time.now %>
+<% tasks_all_count = Task.count %>
 <h3><%= "今日の日付  " + time.strftime("%Y年%m月%d日") %></h3>
+<h2><%= "予定合計" + "#{tasks_all_count}" + "件" %></h2>
